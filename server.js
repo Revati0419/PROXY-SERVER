@@ -4,26 +4,22 @@ const translateRoute = require('./api/translate');
 
 const app = express();
 
-// ✅ CORS setup: allow any frontend to call this API
 app.use(cors({
-  origin: '*', // Change '*' to your frontend URL if you want to restrict
-  methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+    origin: '*',
+    methods: ['GET', 'POST', 'OPTIONS'],
+    allowedHeaders: ['Content-Type']
 }));
 
-// ✅ JSON body parser
 app.use(express.json());
 
-// ✅ Routes
+// Routes
 app.use('/api/translate', translateRoute);
 
-// ✅ Test endpoint
 app.get('/', (req, res) => {
-  res.send('✅ Proxy server is running');
+    res.send('Server is running');
 });
 
-// ✅ Start server (Vercel will handle the actual port)
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`🚀 Server is running on port ${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });
