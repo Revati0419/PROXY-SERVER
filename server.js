@@ -4,9 +4,17 @@ const translateRoute = require('./api/translate');
 
 const app = express();
 
-app.use(cors());
-app.use(express.json());
+// Allow specific frontend origins (or use "*" for dev)
+app.use(cors({
+  origin: "*", // or ["chrome-extension://<your-extension-id>", "http://localhost:3000"]
+  methods: ["GET", "POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
 
+// Handle preflight requests for all routes
+app.options("*", cors());
+
+app.use(express.json());
 app.use('/api/translate', translateRoute);
 
 app.get('/', (req, res) => {
