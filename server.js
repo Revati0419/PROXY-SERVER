@@ -3,26 +3,26 @@ const express = require('express');
 const cors = require('cors');
 const translateRoute = require('./api/translate');
 
-
-
 const app = express();
 
+// Enable CORS for all origins and typical methods
 app.use(cors({
-    origin: '*',
-    methods: ['GET', 'POST', 'OPTIONS'],
-    allowedHeaders: ['Content-Type']
+  origin: '*',
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 app.use(express.json());
 
-// Routes
+// Mount translation API router
 app.use('/api/translate', translateRoute);
 
+// Simple root route for health check
 app.get('/', (req, res) => {
-    res.send('Server is running');
+  res.send('Proxy server is running');
 });
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+  console.log(`Proxy server running on port ${PORT}`);
 });
