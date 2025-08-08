@@ -1,6 +1,9 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const translateRoute = require('./api/translate');
+
+
 
 const app = express();
 

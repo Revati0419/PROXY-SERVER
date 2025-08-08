@@ -2,7 +2,11 @@ const express = require('express');
 const axios = require('axios');
 const router = express.Router();
 
-const HF_API_TOKEN = process.env.HF_API_TOKEN || 'hf_xxxxxxx';
+const HF_API_TOKEN = process.env.HF_API_TOKEN;
+if (!HF_API_TOKEN) {
+    throw new Error("❌ Missing Hugging Face API token");
+}
+
 
 // Handle preflight requests (CORS)
 router.options('/', (req, res) => {
